@@ -1,10 +1,17 @@
 <template>
   <h1>Create new game</h1>
-  <p>English</p>
-  <grid-row :values="wordLang1" :colors="'00000'"></grid-row>
-  <p>German</p>
-  <grid-row :values="wordLang2" :colors="'00000'"></grid-row>
-  <button-default @button-pressed="onButtonPressed" :text="'Create Game!'"
+
+  <div @click="() => onSelectedWord(0)">
+    <p>English</p>
+    <grid-row :values="wordLang1" :colors="'00000'"></grid-row>
+  </div>
+
+  <div @click="() => onSelectedWord(1)">
+    <p>German</p>
+    <grid-row :values="wordLang2" :colors="'00000'"></grid-row>
+  </div>
+
+  <button-default @button-pressed="onCreateButtonPressed" :text="'Create Game!'"
     >Create Game!</button-default
   >
   <key-board
@@ -16,29 +23,41 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+
 import ButtonDefault from "@/components/Shared/FormElements/DefaultButton.vue";
 import GridRow from "@/components/Shared/Grid/GridRow.vue";
 import KeyBoard from "@/components/Shared/Keyboard/KeyBoard.vue";
-import { ref } from "vue";
 
+import { WordHelper } from "@/helpers/WordHelper";
+
+const selectedWordIndex = ref(0);
 const wordLang1 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 const wordLang2 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 
-const onButtonPressed = () => {
-  // Open modal with generated hash
+const onSelectedWord = (index: number) => {
+  selectedWordIndex.value = index;
+};
 
-  console.log("Create button pressed");
+const onCreateButtonPressed = () => {
+  // Open modal with generated hash
 };
 
 const onKeyPressed = (value: string) => {
-  console.log("Key pressed: " + value);
+  let word = getSelectedWord();
+  word.value = WordHelper.addLetter(word.value, value);
 };
 
 const onEnterPressed = () => {
-  console.log("Enter key pressed");
+  selectedWordIndex.value = selectedWordIndex.value === 0 ? 1 : 0;
 };
 
 const onBackspacePressed = () => {
-  console.log("Backspace key pressed");
+  let word = getSelectedWord();
+  word.value = WordHelper.removeLetter(word.value);
+};
+
+const getSelectedWord = () => {
+  return selectedWordIndex.value === 0 ? wordLang1 : wordLang2;
 };
 </script>
