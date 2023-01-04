@@ -1,25 +1,43 @@
 <template>
-  <h1>Create new game</h1>
+  <div class="flex h-screen">
+    <div class="m-auto">
+      <div class="flex flex-col items-center">
+        <h1 class="mb-5">Create new game</h1>
 
-  <div @click="() => onSelectedWord(0)">
-    <p>English</p>
-    <grid-row :values="wordLang1" :colors="'00000'"></grid-row>
+        <div
+          @click="() => onSelectedWord(0)"
+          class="mb-5 p-5 rounded"
+          :class="{ 'bg-gray-400': selectedWordIndex === 0 }"
+        >
+          <p>English</p>
+          <grid-row :values="wordLang1" :colors="'00000'"></grid-row>
+        </div>
+
+        <div
+          @click="() => onSelectedWord(1)"
+          class="mb-5 p-5 rounded"
+          :class="{ 'bg-gray-400': selectedWordIndex === 1 }"
+        >
+          <p>German</p>
+          <grid-row :values="wordLang2" :colors="'00000'"></grid-row>
+        </div>
+
+        <button-default
+          class="mb-5"
+          @button-pressed="onCreateButtonPressed"
+          :text="'Create Game!'"
+          >Create Game!</button-default
+        >
+      </div>
+
+      <key-board
+        class="place-content-center"
+        @keyPressed="onKeyPressed"
+        @backspacePressed="onBackspacePressed"
+        @enterPressed="onEnterPressed"
+      ></key-board>
+    </div>
   </div>
-
-  <div @click="() => onSelectedWord(1)">
-    <p>German</p>
-    <grid-row :values="wordLang2" :colors="'00000'"></grid-row>
-  </div>
-
-  <button-default @button-pressed="onCreateButtonPressed" :text="'Create Game!'"
-    >Create Game!</button-default
-  >
-  <key-board
-    class="place-content-center"
-    @keyPressed="onKeyPressed"
-    @backspacePressed="onBackspacePressed"
-    @enterPressed="onEnterPressed"
-  ></key-board>
 </template>
 
 <script setup lang="ts">
