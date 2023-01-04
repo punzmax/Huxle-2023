@@ -111,6 +111,7 @@ export default {
 
         if (activeRow === 5 && !won) {
           console.log("You Lost!");
+          Initialize();
         } else if (!won) {
           activePositon = 0;
           activeRow += 1;
