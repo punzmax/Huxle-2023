@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import MainGame from "../components/MainGame/MainGame.vue";
+import MainGame from "@/components/MainGame/MainGame.vue";
 </script>

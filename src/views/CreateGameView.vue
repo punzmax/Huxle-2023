@@ -1,5 +1,7 @@
 <template>
-  <h1>Create new huxle game here</h1>
+  <create-game></create-game>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import CreateGame from "@/components/CreateGame/CreateGame.vue";
+</script>
