@@ -21,7 +21,7 @@
     </div>
 
     <div class="flex gap-1 justify-self-center">
-      <Key value="Ent" @key-pressed="onEnterPressed"></Key>
+      <Key value="Ent" class="w-16" @key-pressed="onEnterPressed"></Key>
       <Key
         v-for="(item, index) in QWERTZKeyBoard[2]"
         :value="item"
@@ -29,7 +29,7 @@
         :key="index"
         @key-pressed="onKeyPressed"
       />
-      <Key value="Back" @key-pressed="onBackspacePressed"></Key>
+      <Key value="Back" class="w-16" @key-pressed="onBackspacePressed"></Key>
     </div>
   </div>
 </template>
