@@ -9,6 +9,7 @@
       <div class="h-14"></div>
       <KeyBoard
         class="place-content-center"
+        ref="keyboardRef"
         @keyPressed="KeyPressed"
         @backSpace="BackSpace"
         @enter="Enter"
@@ -20,12 +21,12 @@
 <script>
 import HuxleGrid from "./HuxleGrid.vue";
 import KeyBoard from "./KeyBoard.vue";
-import { ref } from "vue";
+import { ref, defineComponent } from "vue";
 
 //these are the colors that are used in the HUXLE Grid
 export const Colors = {
   White: 0, //Standard
-  Red: 1, //Does Not Contain Letter
+  Grey: 1, //Does Not Contain Letter
   Yellow: 2, //Contains Letter, But at anouther Position
   Green: 3, //Contains Letter at that Position
 };
@@ -38,31 +39,43 @@ export default {
     //to resume game you could pass it in here
     const GridArray = ref(String[[]]);
 
-    GridArray.value = [
-      [" ", " ", " ", " ", " "],
-      [" ", " ", " ", " ", " "],
-      [" ", " ", " ", " ", " "],
-      [" ", " ", " ", " ", " "],
-      [" ", " ", " ", " ", " "],
-      [" ", " ", " ", " ", " "],
-    ];
-
     //this is used to set the appropriate colors after evaluating the input word
     const ColorArray = ref(Number[[]]);
-    ColorArray.value = [
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0],
-    ];
 
     //This should come from the admin-pannel later, and should be passed in!
     const word = ["A", "S", "D", "E", "F"];
 
     let activeRow = 0;
     let activePositon = 0;
+
+    //Ref to keyboard, so we can re-colour the keys
+    const keyboardRef = ref();
+
+    Initialize();
+
+    function Initialize() {
+      ColorArray.value = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+      ];
+      GridArray.value = [
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+        [" ", " ", " ", " ", " "],
+      ];
+      activeRow = 0;
+      activePositon = 0;
+      if (keyboardRef.value !== undefined) {
+        keyboardRef.value.InitializeKeyBoardColors();
+      }
+    }
 
     function KeyPressed(val) {
       if (InsertIsAllowed()) {
@@ -98,7 +111,8 @@ export default {
 
         if (activeRow === 5 && !won) {
           console.log("You Lost!");
-        } else {
+          Initialize();
+        } else if (!won) {
           activePositon = 0;
           activeRow += 1;
         }
@@ -119,34 +133,42 @@ export default {
             if (x === y) {
               //Contains Letter at same Position
               ColorArray.value[activeRow][x] = Colors.Green;
+              SetKeyColor(GridArray.value[activeRow][x], Colors.Green);
               foundAtPos = true;
               count += 1;
             } else {
               //Does Contain Letter, but at different Position
               if (!foundAtPos) {
                 ColorArray.value[activeRow][x] = Colors.Yellow;
+                SetKeyColor(GridArray.value[activeRow][x], Colors.Yellow);
               }
             }
           }
         }
         //Does not contain letter
         if (!contains) {
-          ColorArray.value[activeRow][x] = Colors.Red;
+          ColorArray.value[activeRow][x] = Colors.Grey;
+          SetKeyColor(GridArray.value[activeRow][x], Colors.Grey);
         }
       }
     }
 
     function CheckWin() {
       for (let i = 0; i < 5; i++) {
-        if (GridArray.value[activeRow][i] != word[i]) {
+        if (GridArray.value[activeRow][i] !== word[i]) {
           return false;
         }
       }
       console.log("Win!");
+      Initialize();
       return true;
     }
 
-    return { KeyPressed, GridArray, ColorArray, BackSpace, Enter };
+    function SetKeyColor(Key, col) {
+      keyboardRef.value.SetKeyColor(Key, col);
+    }
+
+    return { KeyPressed, GridArray, ColorArray, BackSpace, Enter, keyboardRef };
   },
 };
 </script>

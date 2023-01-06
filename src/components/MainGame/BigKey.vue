@@ -1,7 +1,7 @@
 <template>
   <button
     @click="KeyPressed"
-    class="h-14 w-20 bg-slate-400 rounded hover:text-stone-600 hover:bg-slate-200"
+    class="lg:h-16 lg:w-22 md:h-14 md:w-18 sm:h-12 sm:w-16 h-10 w-10 bg-slate-400 rounded hover:text-stone-600 hover:bg-slate-200"
   >
     {{ value }}
   </button>

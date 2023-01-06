@@ -1,27 +1,43 @@
 <template>
   <div
-    class="h-12 w-12 border-solid border-2 border-black bg-white"
+    class="lg:h-18 lg:w-18 md:h-16 md:w-16 sm:h-12 sm:w-12 h-10 w-10 flex items-center justify-center border-solid border border-black bg-white"
     v-if="color === 0"
   >
-    <p class="text-center uppercase text-4xl">{{ value }}</p>
+    <p
+      class="align-middle uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-bold"
+    >
+      {{ value }}
+    </p>
   </div>
   <div
-    class="h-12 w-12 border-solid border-2 border-black bg-green-500"
-    v-else-if="color === 3"
-  >
-    <p class="text-center uppercase text-4xl">{{ value }}</p>
-  </div>
-  <div
-    class="h-12 w-12 border-solid border-2 border-black bg-yellow-500"
-    v-else-if="color === 2"
-  >
-    <p class="text-center uppercase text-4xl">{{ value }}</p>
-  </div>
-  <div
-    class="h-12 w-12 border-solid border-2 border-black bg-red-500"
+    class="lg:h-18 lg:w-18 md:h-16 md:w-16 sm:h-12 sm:w-12 h-10 w-10 flex items-center justify-center border-solid border border-black bg-slate-200"
     v-else-if="color === 1"
   >
-    <p class="text-center uppercase text-4xl">{{ value }}</p>
+    <p
+      class="align-middle uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-bold"
+    >
+      {{ value }}
+    </p>
+  </div>
+  <div
+    class="lg:h-18 lg:w-18 md:h-16 md:w-16 sm:h-12 sm:w-12 h-10 w-10 flex items-center justify-center border-solid border border-black bg-yellow-300"
+    v-else-if="color === 2"
+  >
+    <p
+      class="align-middle uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-bold"
+    >
+      {{ value }}
+    </p>
+  </div>
+  <div
+    class="lg:h-18 lg:w-18 md:h-16 md:w-16 sm:h-12 sm:w-12 h-10 w-10 flex items-center justify-center border-solid border border-black bg-green-500"
+    v-else-if="color === 3"
+  >
+    <p
+      class="align-middle uppercase lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-bold"
+    >
+      {{ value }}
+    </p>
   </div>
 </template>
 
