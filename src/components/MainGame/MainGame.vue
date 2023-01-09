@@ -22,7 +22,16 @@
 import HuxleGrid from "./HuxleGrid.vue";
 import KeyBoard from "./KeyBoard.vue";
 import { ref, defineComponent } from "vue";
+var word="asdef"
+//
+const decodeHashLink = (hash) => {
+  
+  const encodedData = hash
 
+  const decodedData = window.atob(encodedData);
+  return decodedData;
+};
+let stl;
 //these are the colors that are used in the HUXLE Grid
 export const Colors = {
   White: 0, //Standard
@@ -30,21 +39,30 @@ export const Colors = {
   Yellow: 2, //Contains Letter, But at anouther Position
   Green: 3, //Contains Letter at that Position
 };
-
 export default {
   name: "MainGame",
+  props: ['url'],
   components: { HuxleGrid, KeyBoard },
+
   setup(props, context) {
+    stl=props.url
+
+    if (!props.url.endsWith("=")) {
+      stl = "QVNERUYsICAgICA=";
+}
+    const decodedwords= decodeHashLink(stl);
+    const wordlang1=decodedwords.substring(0, decodedwords.indexOf(","))
+    const wordLang2=decodedwords.substring(decodedwords.indexOf(",")+1, decodedwords.length)
+   word=wordlang1
+
     //Grid Array is the thing that initializes the wordle-grid,
     //to resume game you could pass it in here
     const GridArray = ref(String[[]]);
 
     //this is used to set the appropriate colors after evaluating the input word
     const ColorArray = ref(Number[[]]);
-
+    
     //This should come from the admin-pannel later, and should be passed in!
-    const word = ["A", "S", "D", "E", "F"];
-
     let activeRow = 0;
     let activePositon = 0;
 
@@ -52,6 +70,10 @@ export default {
     const keyboardRef = ref();
 
     Initialize();
+  
+   
+   
+   
 
     function Initialize() {
       ColorArray.value = [
@@ -84,6 +106,7 @@ export default {
         console.log("not allowed!");
       }
     }
+   
 
     function Insert(val) {
       GridArray.value[activeRow][activePositon] = val;
@@ -101,7 +124,7 @@ export default {
       GridArray.value[activeRow][activePositon - 1] = " ";
       if (activePositon > 0) {
         activePositon -= 1;
-      }
+      } 
     }
 
     function Enter() {
