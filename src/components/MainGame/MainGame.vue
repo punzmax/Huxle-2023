@@ -1,6 +1,7 @@
 <template>
   <div class="flex h-screen">
     <div class="m-auto">
+      <nav-bar></nav-bar>
       <button class="bg-blue-500 rounded text-white px-4 py-2 mb-8 ml-60">
         <button @click="checkModal('en') " class="hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-800">English</button> | 
         <button @click="checkModal('ge')" class="hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-800">Deutsch</button>
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import NavBar from "@/components/Shared/Navigation/NavBar.vue";
 import HuxleGrid from "./HuxleGrid.vue";
 import KeyBoard from "./KeyBoard.vue";
 import { ref, defineComponent } from "vue";
@@ -59,28 +61,6 @@ export default {
   name: "MainGame",
   props: ['url'],
   components: { HuxleGrid, KeyBoard },
-  data() {
-    return {
-      showModal: false,
-      language: 'en'
-    };
-  },
-  methods : {
-    checkModal(lang){
-      if(this.language!=lang){
-        this.showModal=true
-      }
-    },
-    changeLanguage(){
-      if(this.language=='en'){
-        this.language='ge'
-      }else{
-        this.language='en'
-      }
-      this.showModal=false
-      this.SetWord(this.language)
-    }
-  },
 
   setup(props, context) {
     stl=props.url
