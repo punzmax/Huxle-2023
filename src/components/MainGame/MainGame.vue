@@ -2,6 +2,21 @@
   <div class="flex h-screen">
     <div class="m-auto">
       <nav-bar></nav-bar>
+      <button class="bg-blue-500 rounded text-white px-4 py-2 mb-8 ml-60">
+        <button @click="checkModal('en') " class="hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-800">English</button> | 
+        <button @click="checkModal('ge')" class="hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-800">Deutsch</button>
+      </button>
+      <modal name="language-modal" v-if="showModal" class="bg-red-500 fixed flex items-center justify-center">
+        <div class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center p-6">
+          <p class="bg-red-500 px-20 py-5">Discard your progress and switch languages?
+
+        <button @click="changeLanguage" class="hover:bg-red-700 active:bg-red-800 focus:bg-red-800 px-10 py-10">Yes</button>
+        <button @click="showModal= false" class="hover:bg-red-700 active:bg-red-800 focus:bg-red-800 ml-10 px-10 py-10">No</button>
+          </p>
+
+        </div>
+
+      </modal>
 
       <main-title :text="'Play game!'"></main-title>
 
@@ -45,10 +60,11 @@ export const Colors = {
   Yellow: 2, //Contains Letter, But at anouther Position
   Green: 3, //Contains Letter at that Position
 };
+
 export default {
   name: "MainGame",
   props: ['url'],
-  components: {MainTitle, NavBar, HuxleGrid, KeyBoard },
+  components: {NavBar, HuxleGrid, KeyBoard },
 
   setup(props, context) {
     stl=props.url
@@ -59,7 +75,7 @@ export default {
     const decodedwords= decodeHashLink(stl);
     const wordlang1=decodedwords.substring(0, decodedwords.indexOf(","))
     const wordLang2=decodedwords.substring(decodedwords.indexOf(",")+1, decodedwords.length)
-   word=wordlang1
+    
 
     //Grid Array is the thing that initializes the wordle-grid,
     //to resume game you could pass it in here
@@ -196,8 +212,17 @@ export default {
     function SetKeyColor(Key, col) {
       keyboardRef.value.SetKeyColor(Key, col);
     }
-
-    return { KeyPressed, GridArray, ColorArray, BackSpace, Enter, keyboardRef };
+    function SetWord(lang){
+      if(lang=='en'){
+        word= wordlang1
+      }else{
+        word= wordLang2
+      }
+      console.log(word)
+      
+    }
+  
+    return { KeyPressed, GridArray, ColorArray, BackSpace, Enter, keyboardRef, SetWord };
   },
 };
 </script>
