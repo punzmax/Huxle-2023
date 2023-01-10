@@ -64,7 +64,7 @@ export const Colors = {
 export default {
   name: "MainGame",
   props: ['url'],
-  components: {NavBar, HuxleGrid, KeyBoard },
+  components: {MainTitle, NavBar, HuxleGrid, KeyBoard },
 
   setup(props, context) {
     stl=props.url
