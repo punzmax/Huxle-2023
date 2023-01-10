@@ -128,6 +128,8 @@ export default {
     let activeRow = 0;
     let activePositon = 0;
 
+    let guessCnt = 0;
+
     //Ref to keyboard, so we can re-colour the keys
     const keyboardRef = ref();
 
@@ -191,10 +193,21 @@ export default {
 
     function Enter() {
       if (activePositon === 5) {
+        guessCnt++
         EvaluateCurrentRow();
         let won = CheckWin();
+        console.log(guessCnt)
         if(won){
-          return "Congratulations! You won! 🎉"
+          if(guessCnt>3){
+            return "Congratulations! You won! 🎉"
+          }
+          else if(guessCnt==1)
+          {
+            return "Are you a fortune teller? 🤭🎉"
+          }
+          else{
+            return "You won! You are awesome! 🤩🎉🎉🎉"
+          }
         }
 
         if (activeRow === 5 && !won) {
