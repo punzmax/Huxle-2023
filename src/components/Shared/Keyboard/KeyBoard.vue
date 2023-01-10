@@ -1,8 +1,10 @@
 <template>
   <div class="flex grid grid-row-6 gap-1">
     <div class="flex gap-1 justify-self-center">
-      <Key
+      <key-board-key
         v-for="(item, index) in QWERTZKeyBoard[0]"
+        class="lg:w-10 md:w-8 sm:w-8 w-6"
+        :color="0"
         :value="item"
         :index="index"
         :key="index"
@@ -11,8 +13,10 @@
     </div>
 
     <div class="flex gap-1 justify-self-center">
-      <Key
+      <key-board-key
         v-for="(item, index) in QWERTZKeyBoard[1]"
+        class="lg:w-10 md:w-8 sm:w-8 w-6"
+        :color="0"
         :value="item"
         :index="index"
         :key="index"
@@ -21,21 +25,31 @@
     </div>
 
     <div class="flex gap-1 justify-self-center">
-      <Key value="Ent" class="w-16" @key-pressed="onEnterPressed"></Key>
-      <Key
+      <key-board-key
+        value="Ent"
+        class="lg:w-22 md:w-18 sm:w-16 w-10"
+        @key-pressed="onEnterPressed"
+      ></key-board-key>
+      <key-board-key
         v-for="(item, index) in QWERTZKeyBoard[2]"
+        class="lg:w-10 md:w-8 sm:w-8 w-6"
+        :color="0"
         :value="item"
         :index="index"
         :key="index"
         @key-pressed="onKeyPressed"
       />
-      <Key value="Back" class="w-16" @key-pressed="onBackspacePressed"></Key>
+      <key-board-key
+        value="Back"
+        class="lg:w-22 md:w-18 sm:w-16 w-10"
+        @key-pressed="onBackspacePressed"
+      ></key-board-key>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Key from "@/components/Shared/Keyboard/KeyBoardKey.vue";
+import KeyBoardKey from "@/components/Shared/Keyboard/KeyBoardKey.vue";
 
 const QWERTZKeyBoard = [
   ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "Ü"],

@@ -1,53 +1,63 @@
 <template>
   <div class="flex grid grid-row-6 gap-1">
     <div class="flex gap-1 justify-self-center">
-      <Key
+      <key-board-key
         v-for="(item, index) in KeyboardLayout[0]"
+        class="lg:w-10 md:w-8 sm:w-8 w-6"
         :color="ColorLayout[0][index]"
         :value="item"
         :index="index"
         :key="item.id"
-        @pressed="KeyPressed"
+        @key-pressed="KeyPressed"
       />
     </div>
 
     <div class="flex gap-1 justify-self-center">
-      <Key
+      <key-board-key
         v-for="(item, index) in KeyboardLayout[1]"
+        class="lg:w-10 md:w-8 sm:w-8 w-6"
         :color="ColorLayout[1][index]"
         :value="item"
         :index="index"
         :key="item.id"
-        @pressed="KeyPressed"
+        @key-pressed="KeyPressed"
       />
     </div>
     <div class="flex gap-1 justify-self-center">
-      <BigKey value="Ent" @pressed="Enter"></BigKey>
-      <Key
+      <key-board-key
+        class="lg:w-22 md:w-18 sm:w-16 w-10"
+        value="Ent"
+        @key-pressed="Enter"
+      ></key-board-key>
+      <key-board-key
         v-for="(item, index) in KeyboardLayout[2]"
+        class="lg:w-10 md:w-8 sm:w-8 w-6"
         :color="ColorLayout[2][index]"
         :value="item"
         :index="index"
         :key="item.id"
-        @pressed="KeyPressed"
+        @key-pressed="KeyPressed"
       />
-      <BigKey value="Back" @pressed="Back"></BigKey>
+      <key-board-key
+        class="lg:w-22 md:w-18 sm:w-16 w-10"
+        value="Back"
+        @key-pressed="Back"
+      ></key-board-key>
     </div>
   </div>
 </template>
 
 <script>
-import Key from "./Key.vue";
-import BigKey from "./BigKey.vue";
 import { ref, defineExpose } from "vue";
 import { Colors } from "./MainGame.vue";
+import KeyBoardKey from "@/components/Shared/Keyboard/KeyBoardKey.vue";
 
 export default {
   name: "KeyBoard",
   props: {
     callback: Function,
   },
-  components: { Key, BigKey },
+  components: { KeyBoardKey },
   setup(props, context) {
     const QWERTZKeyBoard = [
       ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "Ü"],
