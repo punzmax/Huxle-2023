@@ -2,7 +2,7 @@
   <button
     @click="onButtonPressed"
     :disabled="props.disabled"
-    class="p-2 bg-slate-400 rounded hover:text-stone-600 hover:bg-slate-200"
+    class="p-2 bg-slate-400 rounded hover:text-stone-600 hover:bg-slate-200 disabled:bg-slate-200"
   >
     {{ props.text }}
   </button>

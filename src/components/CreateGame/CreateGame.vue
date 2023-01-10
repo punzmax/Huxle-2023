@@ -28,6 +28,7 @@
           class="mb-5"
           @button-pressed="onCreateButtonPressed"
           :text="'Create Game!'"
+          :disabled="createButtonDisabled"
           >Create Game!</button-default
         >
       </div>
@@ -56,6 +57,7 @@ import { WordHelper } from "@/helpers/WordHelper";
 const selectedWordIndex = ref(0);
 const wordLang1 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 const wordLang2 = ref<Array<string>>([" ", " ", " ", " ", " "]);
+const createButtonDisabled = ref(true);
 
 const onSelectedWord = (index: number) => {
   selectedWordIndex.value = index;
@@ -80,18 +82,26 @@ const onCreateButtonPressed = () => {
 const onKeyPressed = (value: string) => {
   let word = getSelectedWord();
   word.value = WordHelper.addLetter(word.value, value);
+  updateCreateGameButton();
 };
 
 const onEnterPressed = () => {
   selectedWordIndex.value = selectedWordIndex.value === 0 ? 1 : 0;
+  updateCreateGameButton();
 };
 
 const onBackspacePressed = () => {
   let word = getSelectedWord();
   word.value = WordHelper.removeLetter(word.value);
+  updateCreateGameButton();
 };
 
 const getSelectedWord = () => {
   return selectedWordIndex.value === 0 ? wordLang1 : wordLang2;
+};
+
+const updateCreateGameButton = () => {
+  createButtonDisabled.value =
+    wordLang1.value.includes(" ") || wordLang2.value.includes(" ");
 };
 </script>
