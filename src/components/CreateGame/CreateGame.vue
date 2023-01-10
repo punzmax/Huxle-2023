@@ -89,7 +89,8 @@ const onCreateButtonPressed = async (): Promise<string> => {
   const encodedurl = generateEncodedHashLink(
     wordLang1.value.join("") + "," + wordLang2.value.join("")
   );
-  const finalLink = "http://"+location.hostname+":"+location.port+"/" + encodedurl;
+  const finalLink = "Click the link to play my Huxle game! 🙈 \n"+
+  "http://"+location.hostname+":"+location.port+"/" + encodedurl;
   console.log(finalLink);
   try {
     await navigator.clipboard.writeText(finalLink);

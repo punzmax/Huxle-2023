@@ -13,6 +13,12 @@
         <button @click="changeLanguage" class="hover:bg-red-700 active:bg-red-800 focus:bg-red-800 px-10 py-10">Yes</button>
         <button @click="showModal= false" class="hover:bg-red-700 active:bg-red-800 focus:bg-red-800 ml-10 px-10 py-10">No</button>
           </p>
+        </div>
+      </modal>
+      <modal name="language-modal" v-if="showWinModal" class="fixed flex items-center justify-center">
+        
+        <div class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center p-6">
+          <p class="bg-purple-300 px-10 py-5"><button @click="exitPopUp" class="mr-5 hover:bg-purple-300">Exit ❎</button>{{ status }}</p>
 
         </div>
 
@@ -31,18 +37,20 @@
         ref="keyboardRef"
         @keyPressed="KeyPressed"
         @backSpace="BackSpace"
-        @enter="Enter"
+        @enter="checkWinModal"
       ></KeyBoard>
     </div>
   </div>
 </template>
 
 <script>
+import ConfettiExplosion from "vue-confetti-explosion";
 import NavBar from "@/components/Shared/Navigation/NavBar.vue";
 import HuxleGrid from "./HuxleGrid.vue";
 import KeyBoard from "./KeyBoard.vue";
 import { ref, defineComponent } from "vue";
 import MainTitle from "@/components/Shared/TitleBlocks/MainTitle.vue";
+
 var word="asdef"
 //
 const decodeHashLink = (hash) => {
@@ -69,6 +77,8 @@ export default {
     return {
       showModal: false,
       language: 'en',
+      showWinModal: false,
+      status: "",
     }
   },
   methods: {
@@ -82,6 +92,24 @@ export default {
       this.language = this.language === 'en' ? 'ge' : 'en'
       this.SetWord(this.language)
     },
+    checkWinModal () {
+      
+      this.status= this.Enter()
+      if(this.CheckWin())
+      {
+        this.status="Congratulations! You won! 🎉"
+        this.showWinModal = true
+      }
+      if(this.status!="" &&this.status!=undefined)
+      {
+        console.log(this.status)
+        this.showWinModal = true
+      }
+    },
+    exitPopUp () {
+      this.showWinModal = false
+      this.status = ""
+    },
   },
 
   setup(props, context) {
@@ -93,7 +121,7 @@ export default {
     const decodedwords= decodeHashLink(stl);
     const wordlang1=decodedwords.substring(0, decodedwords.indexOf(","))
     const wordLang2=decodedwords.substring(decodedwords.indexOf(",")+1, decodedwords.length)
-    
+    word=wordlang1
 
     //Grid Array is the thing that initializes the wordle-grid,
     //to resume game you could pass it in here
@@ -173,14 +201,14 @@ export default {
         let won = CheckWin();
 
         if (activeRow === 5 && !won) {
-          console.log("You Lost!");
           Initialize();
+          return "You Lost! Try again! 🤕"
         } else if (!won) {
           activePositon = 0;
           activeRow += 1;
         }
       } else {
-        console.log("Cant Enter, word is not finished");
+        return "Please fill in all 5 letters!"
       }
     }
 
@@ -236,11 +264,12 @@ export default {
       }else{
         word= wordLang2
       }
+      Initialize();
       console.log(word)
       
     }
   
-    return { KeyPressed, GridArray, ColorArray, BackSpace, Enter, keyboardRef, SetWord };
+    return { KeyPressed, GridArray, ColorArray, BackSpace, Enter, keyboardRef, SetWord, CheckWin };
   },
 };
 </script>
