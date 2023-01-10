@@ -4,7 +4,7 @@
       <div class="flex flex-col items-center">
         <nav-bar></nav-bar>
 
-        <h1 class="mb-5">Create new game</h1>
+        <main-title :text="'Create new game!'"></main-title>
 
         <div
           @click="() => onSelectedWord(0)"
@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+import MainTitle from "@/components/Shared/TitleBlocks/MainTitle.vue";
 import NavBar from "@/components/Shared/Navigation/NavBar.vue";
 import ButtonDefault from "@/components/Shared/FormElements/DefaultButton.vue";
 import GridRow from "@/components/Shared/Grid/GridRow.vue";
