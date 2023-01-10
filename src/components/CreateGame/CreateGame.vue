@@ -31,6 +31,16 @@
           :disabled="createButtonDisabled"
           >Create Game!</button-default
         >
+        <modal name="language-modal" v-if="showModal" class="fixed flex items-center justify-center">
+        <div class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center p-6">
+          <p class="bg-purple-300 px-10 py-5">Link to share your game:</p>
+          <div class="bg-purple-300 py-5 px-5">
+            <a href={{onCreateButtonPressed}} class="hover:bg-purple-700 active:bg-purple-800">Follow the link!</a>
+            </div>
+
+        </div>
+
+      </modal>
       </div>
 
       <key-board
@@ -58,6 +68,7 @@ const selectedWordIndex = ref(0);
 const wordLang1 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 const wordLang2 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 const createButtonDisabled = ref(true);
+const showModal = ref(false);
 
 const onSelectedWord = (index: number) => {
   selectedWordIndex.value = index;
@@ -76,7 +87,10 @@ const onCreateButtonPressed = () => {
   const encodedurl = generateEncodedHashLink(
     wordLang1.value.join("") + "," + wordLang2.value.join("")
   );
-  console.log(encodedurl);
+  const finalLink = "http://localhost:8080/" + encodedurl;
+  console.log(finalLink);
+  showModal.value = true;
+  return finalLink;
 };
 
 const onKeyPressed = (value: string) => {

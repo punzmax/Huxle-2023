@@ -6,7 +6,7 @@
         <button @click="checkModal('en') " class="hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-800">English</button> | 
         <button @click="checkModal('ge')" class="hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-800">Deutsch</button>
       </button>
-      <modal name="language-modal" v-if="showModal" class="bg-red-500 fixed flex items-center justify-center">
+      <modal name="language-modal" v-if="showModal" class="bg-red-100 fixed flex items-center justify-center">
         <div class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center p-6">
           <p class="bg-red-500 px-20 py-5">Discard your progress and switch languages?
 
@@ -81,7 +81,7 @@ export default {
       this.showModal = false
       this.language = this.language === 'en' ? 'ge' : 'en'
       this.SetWord(this.language)
-    }
+    },
   },
 
   setup(props, context) {
@@ -143,7 +143,7 @@ export default {
       if (InsertIsAllowed()) {
         Insert(val);
       } else {
-        console.log("not allowed!");
+        console.log("Insert is not allowed");
       }
     }
    
