@@ -1,13 +1,12 @@
 # huxl-project
 
-This template should help get you started developing with Vue 3 in Vite.
-
 ## Team
 
-Punz Maximilian         S2110629005
-Köttl Andreas           S2110629014
-Mojoudi Niyousha  	    S2200306039
-Yüksel Deniz            S2200306041
+Punz Maximilian         S2110629005   
+Köttl Andreas           S2110629014  
+Mojoudi Niyousha  	    S2200306039  
+Yüksel Deniz            S2200306041  
+
 
 ## Setup
 
