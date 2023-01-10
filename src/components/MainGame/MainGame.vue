@@ -1,6 +1,7 @@
 <template>
   <div class="flex h-screen">
     <div class="m-auto">
+      <nav-bar></nav-bar>
       <huxle-grid
         class="place-content-center"
         :GridArray="GridArray"
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import NavBar from "@/components/Shared/Navigation/NavBar.vue";
 import HuxleGrid from "./HuxleGrid.vue";
 import KeyBoard from "./KeyBoard.vue";
 import { ref, defineComponent } from "vue";
@@ -42,7 +44,7 @@ export const Colors = {
 export default {
   name: "MainGame",
   props: ['url'],
-  components: { HuxleGrid, KeyBoard },
+  components: {NavBar, HuxleGrid, KeyBoard },
 
   setup(props, context) {
     stl=props.url

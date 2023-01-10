@@ -2,6 +2,8 @@
   <div class="flex h-screen">
     <div class="m-auto">
       <div class="flex flex-col items-center">
+        <nav-bar></nav-bar>
+
         <h1 class="mb-5">Create new game</h1>
 
         <div
@@ -29,7 +31,7 @@
           >Create Game!</button-default
         >
       </div>
-      
+
       <key-board
         class="place-content-center"
         @keyPressed="onKeyPressed"
@@ -37,13 +39,13 @@
         @enterPressed="onEnterPressed"
       ></key-board>
     </div>
-    
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 
+import NavBar from "@/components/Shared/Navigation/NavBar.vue";
 import ButtonDefault from "@/components/Shared/FormElements/DefaultButton.vue";
 import GridRow from "@/components/Shared/Grid/GridRow.vue";
 import KeyBoard from "@/components/Shared/Keyboard/KeyBoard.vue";
@@ -57,24 +59,22 @@ const wordLang2 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 const onSelectedWord = (index: number) => {
   selectedWordIndex.value = index;
 };
-function generateEncodedHashLink(string: string ) {
+function generateEncodedHashLink(string: string) {
   const encodedData = window.btoa(string);
 
-// Generate the hash link
-const link = `${encodedData}`;
+  // Generate the hash link
+  const link = `${encodedData}`;
 
-return link;
+  return link;
 }
-
-
 
 const onCreateButtonPressed = () => {
   // Open modal with generated hash
-  const encodedurl=generateEncodedHashLink(wordLang1.value.join('') +','+ wordLang2.value.join(''));
+  const encodedurl = generateEncodedHashLink(
+    wordLang1.value.join("") + "," + wordLang2.value.join("")
+  );
   console.log(encodedurl);
-  
 };
-
 
 const onKeyPressed = (value: string) => {
   let word = getSelectedWord();
