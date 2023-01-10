@@ -29,7 +29,7 @@
           >Create Game!</button-default
         >
       </div>
-
+      
       <key-board
         class="place-content-center"
         @keyPressed="onKeyPressed"
@@ -37,6 +37,7 @@
         @enterPressed="onEnterPressed"
       ></key-board>
     </div>
+    
   </div>
 </template>
 
@@ -56,10 +57,24 @@ const wordLang2 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 const onSelectedWord = (index: number) => {
   selectedWordIndex.value = index;
 };
+function generateEncodedHashLink(string: string ) {
+  const encodedData = window.btoa(string);
+
+// Generate the hash link
+const link = `${encodedData}`;
+
+return link;
+}
+
+
 
 const onCreateButtonPressed = () => {
   // Open modal with generated hash
+  const encodedurl=generateEncodedHashLink(wordLang1.value.join('') +','+ wordLang2.value.join(''));
+  console.log(encodedurl);
+  
 };
+
 
 const onKeyPressed = (value: string) => {
   let word = getSelectedWord();
