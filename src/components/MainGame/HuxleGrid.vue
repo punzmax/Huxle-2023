@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import GridRow from "./GridRow.vue";
+import GridRow from "@/components/Shared/Grid/GridRow.vue";
 
 export default {
   name: "HuxleGrid",
