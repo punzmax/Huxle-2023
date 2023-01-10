@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen">
-    <div class="m-auto">
+    <div class="ml-auto mr-auto">
       <div class="flex flex-col items-center">
         <nav-bar></nav-bar>
 

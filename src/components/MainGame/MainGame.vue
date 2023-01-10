@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen">
-    <div class="m-auto">
+    <div class="ml-auto mr-auto">
       <nav-bar></nav-bar>
       <button class="bg-blue-500 rounded text-white px-4 py-2 mb-8 ml-60">
         <button @click="checkModal('en') " class="hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-800">English</button> | 
