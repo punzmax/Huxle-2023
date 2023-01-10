@@ -93,13 +93,7 @@ export default {
       this.SetWord(this.language)
     },
     checkWinModal () {
-      
       this.status= this.Enter()
-      if(this.CheckWin())
-      {
-        this.status="Congratulations! You won! 🎉"
-        this.showWinModal = true
-      }
       if(this.status!="" &&this.status!=undefined)
       {
         console.log(this.status)
@@ -199,6 +193,9 @@ export default {
       if (activePositon === 5) {
         EvaluateCurrentRow();
         let won = CheckWin();
+        if(won){
+          return "Congratulations! You won! 🎉"
+        }
 
         if (activeRow === 5 && !won) {
           Initialize();
