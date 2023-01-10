@@ -65,6 +65,24 @@ export default {
   name: "MainGame",
   props: ['url'],
   components: {NavBar, HuxleGrid, KeyBoard },
+  data () {
+    return {
+      showModal: false,
+      language: 'en',
+    }
+  },
+  methods: {
+    checkModal (lang) {
+      if (this.language !== lang) {
+        this.showModal = true
+      }
+    },
+    changeLanguage () {
+      this.showModal = false
+      this.language = this.language === 'en' ? 'ge' : 'en'
+      this.SetWord(this.language)
+    }
+  },
 
   setup(props, context) {
     stl=props.url
