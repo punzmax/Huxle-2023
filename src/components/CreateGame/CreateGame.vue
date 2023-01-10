@@ -26,7 +26,7 @@
 
         <button-default
           class="mb-5"
-          @button-pressed="onCreateButtonPressed"
+          @button-pressed="showModal = true"
           :text="'Create Game!'"
           :disabled="createButtonDisabled"
           >Create Game!</button-default
@@ -35,7 +35,7 @@
         <div class="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center p-6">
           <p class="bg-purple-300 px-10 py-5">Link to share your game:</p>
           <div class="bg-purple-300 py-5 px-5">
-            <a href={{onCreateButtonPressed}} class="hover:bg-purple-700 active:bg-purple-800">Follow the link!</a>
+            <button @click="onCreateButtonPressed" class="hover:bg-purple-800 active:bg-purple-800 focus:bg-purple-800">Copy the link to share!</button>
             </div>
 
         </div>
@@ -64,6 +64,8 @@ import KeyBoard from "@/components/Shared/Keyboard/KeyBoard.vue";
 
 import { WordHelper } from "@/helpers/WordHelper";
 
+
+
 const selectedWordIndex = ref(0);
 const wordLang1 = ref<Array<string>>([" ", " ", " ", " ", " "]);
 const wordLang2 = ref<Array<string>>([" ", " ", " ", " ", " "]);
@@ -73,6 +75,7 @@ const showModal = ref(false);
 const onSelectedWord = (index: number) => {
   selectedWordIndex.value = index;
 };
+
 function generateEncodedHashLink(string: string) {
   const encodedData = window.btoa(string);
 
@@ -81,18 +84,21 @@ function generateEncodedHashLink(string: string) {
 
   return link;
 }
-
-const onCreateButtonPressed = () => {
+const onCreateButtonPressed = async (): Promise<string> => {
   // Open modal with generated hash
   const encodedurl = generateEncodedHashLink(
     wordLang1.value.join("") + "," + wordLang2.value.join("")
   );
-  const finalLink = "http://localhost:8080/" + encodedurl;
+  const finalLink = "http://"+location.hostname+":"+location.port+"/" + encodedurl;
   console.log(finalLink);
-  showModal.value = true;
+  try {
+    await navigator.clipboard.writeText(finalLink);
+    alert('Link copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+  }
   return finalLink;
 };
-
 const onKeyPressed = (value: string) => {
   let word = getSelectedWord();
   word.value = WordHelper.addLetter(word.value, value);
@@ -118,4 +124,5 @@ const updateCreateGameButton = () => {
   createButtonDisabled.value =
     wordLang1.value.includes(" ") || wordLang2.value.includes(" ");
 };
+
 </script>
