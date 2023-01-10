@@ -2,6 +2,9 @@
   <div class="flex h-screen">
     <div class="m-auto">
       <nav-bar></nav-bar>
+
+      <main-title :text="'Play game!'"></main-title>
+
       <huxle-grid
         class="place-content-center"
         :GridArray="GridArray"
@@ -24,6 +27,7 @@ import NavBar from "@/components/Shared/Navigation/NavBar.vue";
 import HuxleGrid from "./HuxleGrid.vue";
 import KeyBoard from "./KeyBoard.vue";
 import { ref, defineComponent } from "vue";
+import MainTitle from "@/components/Shared/TitleBlocks/MainTitle.vue";
 var word="asdef"
 //
 const decodeHashLink = (hash) => {
@@ -44,7 +48,7 @@ export const Colors = {
 export default {
   name: "MainGame",
   props: ['url'],
-  components: {NavBar, HuxleGrid, KeyBoard },
+  components: {MainTitle, NavBar, HuxleGrid, KeyBoard },
 
   setup(props, context) {
     stl=props.url
